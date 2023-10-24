@@ -77,7 +77,14 @@ This will create SSH public and private keys. Copy the public key contents from 
 
 On the Jenkins-Agent, open the .ssh/ folder and edit the authorized_keys file. Paste the public key from Jenkins-Master in this file.
 
-# Time to do jenkins setup
-head over to cd .ssh/
+# 🐈: Time to do jenkins setup
+head over to ` cd .ssh/ `
 
+then   ` sudo cat /var/lib/jenkins/secrets/initialAdminPassword ` to get the admin password
 
+now login to jenkins by doing jenkins master ip-adress:8080 in your browser because the it's running there.
+
+- install suggested plugin 
+- set credentials and start using jenkins
+- Manage jenkins nodes and set no of executors 0 and save
+- again go to manage -> new node -> give name (Jenkins-agent) permanent agent and create -> no of executors 2 -> remote root directory /home/ubuntu/ -> label agent -> usage use as possible  -> lunch method lunch agents via ssh -> host (jenkins agent private id adress) -> credentials add jenkins -> kind ssh username with private key ->  id (jenkins agent) -> username ubuntu -> private key enter directly (go to jenkins master and find ssh private key and paste the contents) -> host key verfication strategy (non verifying verification) -> save
