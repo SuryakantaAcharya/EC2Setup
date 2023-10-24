@@ -77,4 +77,7 @@ This will create SSH public and private keys. Copy the public key contents from 
 
 On the Jenkins-Agent, open the .ssh/ folder and edit the authorized_keys file. Paste the public key from Jenkins-Master in this file.
 
+# Time to do jenkins setup
+head over to cd .ssh/
+
 
