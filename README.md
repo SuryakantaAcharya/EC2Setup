@@ -70,8 +70,13 @@ do the same in **jenkins-master**
 
 reload the ssh service in both the VMs cmd - _sudo service sshd reload_
 
-Go to master and do _ssh-keygen_  copy the public key and paste in _authorized_keys_ file in agent.
+Go to jenkins-master and do cmd - _ssh-keygen_  
+It will create ssh public and private keys.
+Go to _/home/ubuntu/.ssh/_
+Copy the public key contents
+Go to Jenkins-agent and open .ssh/ folder
+There you will find _authorized_keys_ file.
+Open that and paste the public key from jenkins-master there.
 
-it's inside _/home/ubuntu/.ssh/_ you can fine the public key in the same directory and the auth file as well.
 
 
