@@ -1,7 +1,7 @@
 # EC2Setup
 
 First go and create an aws account by paying 2 ruppes inr.
-As you get 30 gb free storage we will create 2 15gb each instances(Jenkins-Master and Jenkins Admin) with ubuntu and get the private key to login. 
+As you get 30 gb free storage we will create 2 15gb each instances(Jenkins-Master and Jenkins Agent) with ubuntu and get the private key to login. 
 
 
 Now refer to the **setup.sh** file in repo
@@ -35,4 +35,43 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 sudo apt-get update
 sudo apt-get install jenkins 
 </pre>
+
+
+
+Once jenkins installation is done make sure to run this command to run it in every boot - _sudo systemctl enable jenkins_
+
+
+to start jenkins use this : _sudo systemctl start jenkins_
+
+**Time to create jenkins-agent the new Virtual machine - repeat same steps as prev one.**
+
+make sure to update and upgrade that. 
+To get rid of confusion make sure to edit host name by doing 
+
+_sudo nano /etc/hostname_
+
+now edit the file and hit Ctrl+X and hit enter
+
+Install java in this too. 
+
+All build will also happen in this agent so we need docker as well. 
+cmd - _sudo apt-get install docker.io_
+
+
+Give full rights to the docker as user by this.
+cmd - _sudo usermod -aG docker $USER_
+
+Now to to ssh config file _sudo nano /etc/ssh/sshd_config_
+uncomment these 2 lines 
+_PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys .ssh/authorized_keys2_
+
+do the same in **jenkins-master** 
+
+reload the ssh service in both the VMs cmd - _sudo service sshd reload_
+
+Go to master and do _ssh-keygen_  copy the public key and paste in _authorized_keys_ file in agent.
+
+it's inside _/home/ubuntu/.ssh/_ you can fine the public key in the same directory and the auth file as well.
+
 
