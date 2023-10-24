@@ -46,8 +46,7 @@ sudo systemctl start jenkins
 
 :arrows_counterclockwise: Step 8: Set Up Jenkins Agent
 Repeat the same steps as for Jenkins-Master on the new virtual machine, including updating, configuring security groups, and installing Java.
-Additionally, install Docker on the agent with the following command:
-
+:package: Install Docker
 sudo apt-get install docker.io
 
 
@@ -56,6 +55,7 @@ Give full rights to Docker as a user:
 
 sudo usermod -aG docker $USER
 
+:key: Edit SSH Configuration
 Edit the SSH configuration file in both the VMs:
 
 sudo nano /etc/ssh/sshd_config
@@ -68,6 +68,8 @@ AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
 Reload the SSH service:
 
 sudo service sshd reload 
+
+:key: Generate SSH Keys
 
 On the Jenkins-Master instance, generate SSH keys:
 
