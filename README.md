@@ -2,8 +2,7 @@
 
 This guide will walk you through setting up a Jenkins environment on AWS EC2 instances.
 
- :moneybag: Step 1: Create an AWS Account
-
+ :moneybag: ** Create an AWS Account **
 Start by creating an AWS account. You may need to pay a small fee to set up your account. 
 
  :computer: Step 2: Launch EC2 Instances
