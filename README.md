@@ -1,19 +1,19 @@
-# :rocket: EC2 Setup Guide
+ :rocket: EC2 Setup Guide
 
 This guide will walk you through setting up a Jenkins environment on AWS EC2 instances.
 
-## :moneybag: Step 1: Create an AWS Account
+ :moneybag: Step 1: Create an AWS Account
 
 Start by creating an AWS account. You may need to pay a small fee to set up your account. 
 
-## :computer: Step 2: Launch EC2 Instances
+ :computer: Step 2: Launch EC2 Instances
 
 1. Create two EC2 instances, one for Jenkins Master and one for Jenkins Agent. Each instance should have 15GB of storage, and they should both run Ubuntu.
 2. Make sure to save the private key for SSH access to these instances.
 
 Refer to the `setup.sh` file in your repository for further setup instructions.
 
-## :arrow_up: Step 3: Update Your System
+ :arrow_up: Step 3: Update Your System
 
 After creating the Jenkins-Master instance, update your system with the following commands:
 
