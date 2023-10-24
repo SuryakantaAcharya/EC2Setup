@@ -11,7 +11,7 @@ Start by creating an AWS account. You may need to pay a small fee to set up your
 1. Create two EC2 instances, one for Jenkins Master and one for Jenkins Agent. Each instance should have 15GB of storage, and they should both run Ubuntu.
 2. Make sure to save the private key for SSH access to these instances.
 
-Refer to the `setup.sh` file in your repository for further setup instructions.
+Refer to the `setup.sh` file in the repository for further setup instructions.
 
  :arrow_up: Step 3: Update Your System
 
