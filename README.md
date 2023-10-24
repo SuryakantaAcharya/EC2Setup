@@ -1,82 +1,80 @@
-# EC2Setup
+# :rocket: EC2 Setup Guide
 
-First go and create an aws account by paying 2 ruppes inr.
-As you get 30 gb free storage we will create 2 15gb each instances(Jenkins-Master and Jenkins Agent) with ubuntu and get the private key to login. 
+This guide will walk you through setting up a Jenkins environment on AWS EC2 instances.
 
+## :moneybag: Step 1: Create an AWS Account
 
-Now refer to the **setup.sh** file in repo
+Start by creating an AWS account. You may need to pay a small fee to set up your account. 
 
+## :computer: Step 2: Launch EC2 Instances
 
-Once you are done with creating the Jenkins-Master instance make sure to update your system.
+1. Create two EC2 instances, one for Jenkins Master and one for Jenkins Agent. Each instance should have 15GB of storage, and they should both run Ubuntu.
+2. Make sure to save the private key for SSH access to these instances.
 
-_sudo apt update
-sudo apt updgrade
-_
+Refer to the `setup.sh` file in your repository for further setup instructions.
 
+## :arrow_up: Step 3: Update Your System
 
-**Time to set security groups:**
+After creating the Jenkins-Master instance, update your system with the following commands:
 
-https://eu-north-1.console.aws.amazon.com/ec2/home?region=eu-north-1#SecurityGroup:group-id=sg-060c9d2d114686cb5 
+sudo apt update
+sudo apt upgrade
 
-Go to security groups and add Custom TCP / 8080 / anywhere in ipv4 in inbound rule. Because jenkins works in 8080 port only
+:shield: Step 4: Configure Security Groups
+Go to the AWS EC2 Security Group page and add an inbound rule for Custom TCP on port 8080 from anywhere in IPv4. Jenkins uses port 8080.
 
+:coffee: Step 5: Install Java
+Install OpenJDK 17 with the following command:
 
-**Install java -**  sudo sudo apt install openjdk-17-jre 
+sudo apt install openjdk-17-jre
 
-Now to go to jenkins weekly release page and get the command to install jenkins in your system
+:building_construction: Step 6: Install Jenkins
+Go to the Jenkins weekly release page and get the command to install Jenkins on your system. Run the following commands:
 
-
-<pre>
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian/jenkins.io-2023.key
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update
-sudo apt-get install jenkins 
-</pre>
+sudo apt-get install jenkins
+
+:gear: Step 7: Enable Jenkins Service
+After Jenkins installation, enable the Jenkins service to run at boot:
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+:arrows_counterclockwise: Step 8: Set Up Jenkins Agent
+Repeat the same steps as for Jenkins-Master on the new virtual machine, including updating, configuring security groups, and installing Java.
+Additionally, install Docker on the agent with the following command:
+
+sudo apt-get install docker.io
 
 
-
-Once jenkins installation is done make sure to run this command to run it in every boot - _sudo systemctl enable jenkins_
-
-
-to start jenkins use this : _sudo systemctl start jenkins_
-
-**Time to create jenkins-agent the new Virtual machine - repeat same steps as prev one.**
-
-make sure to update and upgrade that. 
-To get rid of confusion make sure to edit host name by doing 
-
-_sudo nano /etc/hostname_
-
-now edit the file and hit Ctrl+X and hit enter
-
-Install java in this too. 
-
-All build will also happen in this agent so we need docker as well. 
-cmd - _sudo apt-get install docker.io_
+Give full rights to Docker as a user:
 
 
-Give full rights to the docker as user by this.
-cmd - _sudo usermod -aG docker $USER_
+sudo usermod -aG docker $USER
 
-Now to to ssh config file _sudo nano /etc/ssh/sshd_config_
-uncomment these 2 lines 
-_PubkeyAuthentication yes
-AuthorizedKeysFile      .ssh/authorized_keys .ssh/authorized_keys2_
+Edit the SSH configuration file in both the VMs:
 
-do the same in **jenkins-master** 
+sudo nano /etc/ssh/sshd_config
 
-reload the ssh service in both the VMs cmd - _sudo service sshd reload_
+Uncomment the following lines:
 
-Go to jenkins-master and do cmd - _ssh-keygen_  
-It will create ssh public and private keys.
-Go to _/home/ubuntu/.ssh/_
-Copy the public key contents
-Go to Jenkins-agent and open .ssh/ folder
-There you will find _authorized_keys_ file.
-Open that and paste the public key from jenkins-master there.
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
 
+Reload the SSH service:
+
+sudo service sshd reload 
+
+On the Jenkins-Master instance, generate SSH keys:
+
+ssh-keygen
+
+This will create SSH public and private keys. Copy the public key contents from /home/ubuntu/.ssh/.
+
+On the Jenkins-Agent, open the .ssh/ folder and edit the authorized_keys file. Paste the public key from Jenkins-Master in this file.
 
 
