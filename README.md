@@ -17,8 +17,8 @@ Refer to the `setup.sh` file in the repository for further setup instructions.
 
 After creating the Jenkins-Master instance, update your system with the following commands:
 
-sudo apt update
-sudo apt upgrade
+`sudo apt update
+sudo apt upgrade`
 
 :shield: Step 4: Configure Security Groups
 Go to the AWS EC2 Security Group page and add an inbound rule for Custom TCP on port 8080 from anywhere in IPv4. Jenkins uses port 8080.
